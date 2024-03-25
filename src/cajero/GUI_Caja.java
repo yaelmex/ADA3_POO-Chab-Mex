@@ -20,6 +20,7 @@ public class GUI_Caja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	Intermedio admin;
+	//ramaCreada
 
 	/**
 	 * Launch the application.
