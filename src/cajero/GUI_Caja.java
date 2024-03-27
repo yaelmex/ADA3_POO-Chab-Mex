@@ -20,6 +20,7 @@ public class GUI_Caja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	Intermedio admin;
+	
 	//ramaCreada
 
 	/**
@@ -104,10 +105,11 @@ public class GUI_Caja extends JFrame {
 		lblimagen_1_1_1.setBounds(330, 297, 77, 38);
 		contentPane.add(lblimagen_1_1_1);
 		
-		JLabel lblPresentacion = new JLabel("Buen día [Nombre Cajero] :)");
+		JLabel lblPresentacion = new JLabel("");
 		lblPresentacion.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblPresentacion.setBounds(10, 369, 320, 38);
 		contentPane.add(lblPresentacion);
+		lblPresentacion.setText("Buen día " + GUI_InicioSesion.presentacion + " :)");
 		
 		JLabel lblFecha = new JLabel("");
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 15));
