@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -41,6 +42,8 @@ public class GUI_Caja extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_Caja() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 421, 547);
 		contentPane = new JPanel();
@@ -69,6 +72,13 @@ public class GUI_Caja extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnAbonoACuenta = new JButton("Abono a Cuenta");
+		btnAbonoACuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI_Abono ventana = new GUI_Abono();
+				ventana.setVisible(true);
+				dispose();
+			}
+		});
 		btnAbonoACuenta.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnAbonoACuenta.setBounds(0, 187, 330, 38);
 		contentPane.add(btnAbonoACuenta);
