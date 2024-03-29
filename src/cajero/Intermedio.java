@@ -27,6 +27,7 @@ public class Intermedio {
 			outbw = new BufferedWriter(outfw);
 			String cadena = nombre + " " + usuario + " " + contraseña;
 			outbw.write(cadena);
+			
 			outbw.newLine();
 		} catch(IOException e) {
 			System.out.println(e.getMessage());
@@ -73,6 +74,75 @@ public class Intermedio {
 			e.printStackTrace();
 		}
 		return false; 
+	}
+	
+	public String transferencia(String origen, String destino, float monto) {
+		StringBuilder fileContent = new StringBuilder();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Cuentas.txt"));
+			String linea = br.readLine();
+			Float montoComparar = 0F;
+			Float montoDestino = 0F;
+			String actualizarOrigen = "";
+			String actualizarDestino = "";
+			
+			while(linea != null) {
+				if(linea.contains(origen)) {
+					actualizarOrigen = linea;
+					String[] extraido = linea.split(" ");
+					montoComparar = Float.parseFloat(extraido[2]);
+				}
+				if(linea.contains(destino)) {
+					actualizarDestino = linea;
+					String[] extraido_destino = linea.split(" ");
+					montoDestino = Float.parseFloat(extraido_destino[2]);
+				}
+				linea = br.readLine();
+				
+			}
+			br.close();
+			
+			if(monto > montoComparar) {
+				return "No posee fondos suficientes";
+			} else {
+				
+				String [] dividirOrigen = actualizarOrigen.split(" ");
+				String remplazarOrigen = String.valueOf(montoComparar - monto); 
+				String OrigenFinal = actualizarOrigen.replace(dividirOrigen[2], remplazarOrigen);
+				
+				String [] dividirDestino = actualizarDestino.split(" ");
+				String remplazarDestino = String.valueOf(montoDestino + monto); 
+				String DestinoFinal = actualizarDestino.replace(dividirDestino[2], remplazarDestino);
+				
+				
+				BufferedReader in = new BufferedReader(new FileReader("Cuentas.txt"));
+				
+				String lineaAct;
+				while ((lineaAct = in.readLine()) != null) {
+					
+					if(lineaAct.contains(origen)) {
+						fileContent.append(OrigenFinal).append(System.getProperty("line.separator"));
+					} else if(lineaAct.contains(destino)) {
+						fileContent.append(DestinoFinal).append(System.getProperty("line.separator"));
+					} else {
+						fileContent.append(lineaAct).append(System.getProperty("line.separator"));
+					}
+				}
+				
+				try (BufferedWriter writer = new BufferedWriter(new FileWriter("Cuentas.txt"))) {
+			            writer.write(fileContent.toString());
+			            in.close();
+			            writer.close();
+						return "Transferencia Éxitosa";
+			     } catch (IOException e) {
+			            e.printStackTrace();
+			     }	
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;	
 	}
 	   
 }
