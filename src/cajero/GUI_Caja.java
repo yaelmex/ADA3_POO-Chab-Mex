@@ -14,12 +14,15 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 
 public class GUI_Caja extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	Intermedio admin;
+	
+	//ramaCreada
 
 	/**
 	 * Launch the application.
@@ -50,23 +53,24 @@ public class GUI_Caja extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("[Aquí irá el banner de presentación]");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\banner.png"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(0, 0, 407, 58);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblMovientoARealizar = new JLabel("Moviento a realizar");
-		lblMovientoARealizar.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMovientoARealizar.setBounds(0, 69, 382, 58);
-		contentPane.add(lblMovientoARealizar);
-		
-		JButton btnNewButton = new JButton("Transferenia");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnTransferencia = new JButton("Transferencia");
+		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnTransferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GUI_Transferencia newframe = new GUI_Transferencia();
+				newframe.Transferencia = admin;
+				newframe.setLocationRelativeTo(null);
+				newframe.setVisible(true);
+				dispose();
 			}
 		});
-		btnNewButton.setBounds(0, 138, 330, 38);
-		contentPane.add(btnNewButton);
+		btnTransferencia.setBounds(0, 138, 330, 38);
+		contentPane.add(btnTransferencia);
 		
 		JButton btnAbonoACuenta = new JButton("Abono a Cuenta");
 		btnAbonoACuenta.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -79,34 +83,44 @@ public class GUI_Caja extends JFrame {
 		contentPane.add(btnBusquedaDeCuenta);
 		
 		JButton btnCierreDeCaja = new JButton("Cierre de Caja");
+		btnCierreDeCaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnCierreDeCaja.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnCierreDeCaja.setBounds(0, 297, 330, 38);
 		contentPane.add(btnCierreDeCaja);
 		
 		JLabel lblimagen = new JLabel("[Imagen]");
+		lblimagen.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\transferencia-de-dinero.png"));
 		lblimagen.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblimagen.setBounds(330, 138, 77, 38);
 		contentPane.add(lblimagen);
 		
 		JLabel lblimagen_1 = new JLabel("[Imagen]");
+		lblimagen_1.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\abono.png"));
 		lblimagen_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblimagen_1.setBounds(330, 187, 77, 38);
 		contentPane.add(lblimagen_1);
 		
 		JLabel lblimagen_1_1 = new JLabel("[Imagen]");
+		lblimagen_1_1.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\lupa.png"));
 		lblimagen_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblimagen_1_1.setBounds(330, 243, 77, 38);
 		contentPane.add(lblimagen_1_1);
 		
 		JLabel lblimagen_1_1_1 = new JLabel("[Imagen]");
+		lblimagen_1_1_1.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\caja-fuerte.png"));
 		lblimagen_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblimagen_1_1_1.setBounds(330, 297, 77, 38);
 		contentPane.add(lblimagen_1_1_1);
 		
-		JLabel lblPresentacion = new JLabel("Buen día [Nombre Cajero] :)");
+		JLabel lblPresentacion = new JLabel("");
 		lblPresentacion.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblPresentacion.setBounds(10, 369, 320, 38);
 		contentPane.add(lblPresentacion);
+		lblPresentacion.setText("Buen día " + GUI_InicioSesion.presentacion + " :)");
 		
 		JLabel lblFecha = new JLabel("");
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -117,6 +131,11 @@ public class GUI_Caja extends JFrame {
 		String dia =  String.valueOf(calendario.get(Calendar.DATE));
 		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
 		lblFecha.setText("Fecha de hoy: "+dia+"/"+mes+"/"+year);
+		
+		JLabel lblMovimientos = new JLabel("Movimientos Disponibles");
+		lblMovimientos.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMovimientos.setBounds(87, 89, 212, 38);
+		contentPane.add(lblMovimientos);
 
 	}
 }
