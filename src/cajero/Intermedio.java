@@ -33,24 +33,28 @@ public class Intermedio {
 		{
 		
 		try {
+			String nombre = "";
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String cadena = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
 				String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-				String part1 = parts[0]; String part2 = parts[1]; String part3 = parts[2]; String part4 = parts[3]; // Adicion a un arreglo temporal
-				String part5 = parts[4]; 
-				String nombre = part1 + " " + part2 + " " +  part3 + " " + part4;
+				
+				if(parts.length == 6) {
+				 nombre = parts[4];
+				} else if (parts.length ==5) {
+					nombre = parts[3];
+				}
+				
 				if(nombre.contains(usuario)) {
 					if(parts.length == 6) {
-						String nueSaldo = sumaAbono(part5, abono);
-						cadena += linea.replaceAll(part5, nueSaldo) + "\r\n";
+						String nueSaldo = sumaAbono( parts[5], abono);
+						cadena += linea.replaceAll(parts[5], nueSaldo) + "\r\n";
 						}// Remplazo de la tercera linea con el saldo
 						else if(parts.length == 5) {
-						nombre = parts[0] + " " + parts[1] + " " +  parts[2];
-						String nueSaldo = sumaAbono(part4, abono);
-						cadena += linea.replaceAll(part4, nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
+						String nueSaldo = sumaAbono(parts[4], abono);
+						cadena += linea.replaceAll(parts[4], nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
 						}
 						
 					}
