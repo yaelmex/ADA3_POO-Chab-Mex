@@ -29,28 +29,6 @@ public class Intermedio {
 	}
 
 	
-
-	public void agregarCuenta(String nombre) {
-		try {
-		String contador[] = nombre.split("");
-		if(contador.length == 5) {
-		String cadena = nombre + " 0000000000000" + "\r\n";
-		FileWriter writer = new FileWriter("Cuentas.txt", true);
-		writer.write(cadena); // escribimos toda la línea
-		writer.close();	
-		} else if (contador.length == 4) {
-		String cadena = nombre + " ." + " 0000000000000" + "\r\n";
-		FileWriter writer = new FileWriter("Cuentas.txt", true);
-		writer.write(cadena); // escribimos toda la línea
-		writer.close();	
-		}
-		} catch (IOException error) {
-			JOptionPane.showMessageDialog(null, error.getMessage());
-			error.printStackTrace();	
-		} 
-	}
-	
-	
 	public void addAbono(String abono, String usuario) 
 		{
 		
@@ -65,8 +43,16 @@ public class Intermedio {
 				String part5 = parts[4]; 
 				String nombre = part1 + " " + part2 + " " +  part3 + " " + part4;
 				if(nombre.contains(usuario)) {
+					if(parts.length == 6) {
 						String nueSaldo = sumaAbono(part5, abono);
-						cadena += linea.replaceAll(part5, nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
+						cadena += linea.replaceAll(part5, nueSaldo) + "\r\n";
+						}// Remplazo de la tercera linea con el saldo
+						else if(parts.length == 5) {
+						nombre = parts[0] + " " + parts[1] + " " +  parts[2];
+						String nueSaldo = sumaAbono(part4, abono);
+						cadena += linea.replaceAll(part4, nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
+						}
+						
 					}
 					else 
 						cadena += linea + "\r\n";
@@ -249,7 +235,7 @@ try {
 	public String getCodigo(String txtNombre) {
 		String codigo = "";
 		try {	
-			BufferedReader archivo = new BufferedReader (new FileReader ("Usuarios.txt"));
+			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String nombre = "";
 			while ((linea = archivo.readLine())!=null) 

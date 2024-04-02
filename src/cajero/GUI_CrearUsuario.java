@@ -78,7 +78,6 @@ public class GUI_CrearUsuario extends JFrame {
 				String contraseña = textContraseña.getText();
 				String usuario = nombre.substring(0,1).toUpperCase() + apellidos.substring(0,3).toUpperCase();
 				Registrador.agregarUsuario(nombre, usuario, contraseña);
-				Registrador.agregarCuenta(nombre);
 				JOptionPane.showMessageDialog(null, "¡Usuario añadido con éxito, empecemos!");
 				GUI_InicioSesion newframe = new GUI_InicioSesion();
 				newframe.sesion = Registrador;

@@ -19,6 +19,7 @@ public class GUI_Abono extends JFrame {
 	private JTextField txtAbono;
 	Intermedio metAbono = new Intermedio();
 	String nombre = ""; String code = "";
+ private JTextField txtUser;
 
 	/**
 	 * Launch the application.
@@ -71,11 +72,11 @@ public class GUI_Abono extends JFrame {
 		contentPane.add(lblCode);
 		
 		JLabel lblAbonar = new JLabel("Monto de abono");
-		lblAbonar.setBounds(52, 125, 84, 14);
+		lblAbonar.setBounds(50, 111, 84, 14);
 		contentPane.add(lblAbonar);
 		
 		txtAbono = new JTextField();
-		txtAbono.setBounds(188, 121, 214, 20);
+		txtAbono.setBounds(186, 106, 214, 20);
 		contentPane.add(txtAbono);
 		txtAbono.setColumns(10);
 		
@@ -83,11 +84,10 @@ public class GUI_Abono extends JFrame {
 		btnAbonar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Intermedio envAbono = new Intermedio();
-				System.out.println(lblnombreDeUsuario.getText());
-				envAbono.addAbono(txtAbono.getText(), lblnombreDeUsuario.getText());
+				envAbono.addAbono(txtAbono.getText(), txtUser.getText());
 			}
 		});
-		btnAbonar.setBounds(43, 176, 89, 23);
+		btnAbonar.setBounds(43, 197, 89, 23);
 		contentPane.add(btnAbonar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -98,7 +98,16 @@ public class GUI_Abono extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(189, 176, 89, 23);
+		btnCancelar.setBounds(187, 196, 89, 23);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblCuenAbono = new JLabel("Cuenta a abonar");
+		lblCuenAbono.setBounds(50, 141, 84, 14);
+		contentPane.add(lblCuenAbono);
+		
+		txtUser = new JTextField();
+		txtUser.setColumns(10);
+		txtUser.setBounds(186, 138, 214, 20);
+		contentPane.add(txtUser);
 	}
 }

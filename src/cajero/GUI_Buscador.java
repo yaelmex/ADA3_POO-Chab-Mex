@@ -57,7 +57,7 @@ public class GUI_Buscador extends JFrame {
 	private void CargarDatos() {
 try {
 			
-			BufferedReader archivo = new BufferedReader (new FileReader ("Usuarios.txt"));
+			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			while ((linea = archivo.readLine())!=null) 
 					{
