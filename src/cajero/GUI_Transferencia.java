@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class GUI_Transferencia extends JFrame {
 
@@ -52,6 +53,7 @@ public class GUI_Transferencia extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("[Aquí irá el banner de presentación]");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Yael\\Downloads\\BIENVENIDO AL MÓDULO DE TRANSFERENCIAS BANCARIAS....png"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(0, 0, 514, 58);
 		contentPane.add(lblNewLabel);

@@ -23,7 +23,6 @@ public class GUI_InicioSesion extends JFrame {
 	private JTextField textContraseña;
 	private JLabel lblAgregarUsuario;
 	Intermedio acceso = new Intermedio();
-	Intermedio sesion;
 	public static String presentacion  =  "";
 
 	/**
@@ -111,13 +110,13 @@ public class GUI_InicioSesion extends JFrame {
 				
 				String usuario = textUsuario.getText();
 				String contraseña = textContraseña.getText();
-				boolean validador = sesion.buscarUsuario(usuario, contraseña);
+				boolean validador = acceso.buscarUsuario(usuario, contraseña);
 				presentacion = textUsuario.getText();
 				
 				if(validador) {
 					JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
 					GUI_Caja newframe = new GUI_Caja();
-					newframe.admin = sesion;
+					newframe.admin = acceso;
 					newframe.setLocationRelativeTo(null);
 					newframe.setVisible(true);
 					dispose();
