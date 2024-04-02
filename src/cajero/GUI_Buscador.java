@@ -57,23 +57,26 @@ public class GUI_Buscador extends JFrame {
 	private void CargarDatos() {
 try {
 			
-			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
+			BufferedReader archivo = new BufferedReader (new FileReader ("Usuarios.txt"));
 			String linea;
 			while ((linea = archivo.readLine())!=null) 
 					{
 					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					String part1 = parts[0]; // Adicion a un arreglo temporal
-					nombres.add(part1);
+					if(parts.length == 6) {
+					String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2] ; String part4 = parts[3];// Adicion a un arreglo temporal
+					nombres.add(part1 + " " + part2 + " "  + part3  + " " + part4);
+					} else if (parts.length == 5) {
+						String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2];// Adicion a un arreglo temporal
+						nombres.add(part1 + " " + part2 + " "  + part3);
+					}
 					}
 			archivo.close();
-					
 			
 				} catch (IOException error) {
 					JOptionPane.showMessageDialog(null, error.getMessage());
 					error.printStackTrace();	
 				} 
 		}
-	
 
 	private void CargarSugerencias() {
 		JList listSugerencias = new JList(nombres.toArray(new String[nombres.size()]));
@@ -85,7 +88,7 @@ try {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 672, 374);
+		setBounds(100, 100, 560, 285);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -99,55 +102,43 @@ try {
 				
 			}
 		});
-		txtBuscar.setBounds(80, 44, 513, 34);
+		txtBuscar.setBounds(16, 44, 513, 34);
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
-		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnBuscar.setBounds(222, 94, 158, 45);
-		contentPane.add(btnBuscar);
 		
 		JLabel lblBusUsuario = new JLabel("Busqueda de Usuarios");
 		lblBusUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBusUsuario.setFont(new Font("Inter Black", Font.PLAIN, 20));
-		lblBusUsuario.setBounds(176, 9, 268, 23);
+		lblBusUsuario.setBounds(128, 8, 268, 23);
 		contentPane.add(lblBusUsuario);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(29, 187, 46, 14);
+		lblNombre.setBounds(22, 174, 46, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel lblCodigo = new JLabel("Codigo de cuenta");
-		lblCodigo.setBounds(28, 212, 105, 14);
+		lblCodigo.setBounds(23, 208, 105, 14);
 		contentPane.add(lblCodigo);
 		
-		JLabel lblSaldo = new JLabel("Saldo");
-		lblSaldo.setBounds(29, 242, 105, 14);
-		contentPane.add(lblSaldo);
-		
-		JLabel lblMovimiento = new JLabel("Ultimo movimiento");
-		lblMovimiento.setBounds(30, 268, 105, 14);
-		contentPane.add(lblMovimiento);
-		
 		JLabel varNombre = new JLabel("");
-		varNombre.setBounds(228, 187, 281, 14);
+		varNombre.setBounds(159, 172, 281, 14);
 		contentPane.add(varNombre);
 		
 		JLabel varCodCuenta = new JLabel("");
-		varCodCuenta.setBounds(226, 210, 281, 14);
+		varCodCuenta.setBounds(163, 207, 281, 14);
 		contentPane.add(varCodCuenta);
 		
-		JLabel varSaldo = new JLabel("");
-		varSaldo.setBounds(226, 241, 281, 14);
-		contentPane.add(varSaldo);
-		
-		JLabel varUltMov = new JLabel("");
-		varUltMov.setBounds(227, 268, 281, 14);
-		contentPane.add(varUltMov);
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Intermedio metodo = new Intermedio();
+				varNombre.setText(txtBuscar.getText());
+				String codigo = metodo.getCodigo(txtBuscar.getText());
+				varCodCuenta.setText(codigo);
+			}
+		});
+		btnBuscar.setBounds(161, 86, 158, 45);
+		contentPane.add(btnBuscar);
 		
 		CargarDatos();
 		CargarSugerencias();

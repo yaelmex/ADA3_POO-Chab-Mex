@@ -21,6 +21,8 @@ public class GUI_Caja extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	Intermedio admin;
+	
+	//ramaCreada
 
 	/**
 	 * Launch the application.
@@ -62,14 +64,19 @@ public class GUI_Caja extends JFrame {
 		lblMovientoARealizar.setBounds(0, 69, 382, 58);
 		contentPane.add(lblMovientoARealizar);
 		
-		JButton btnNewButton = new JButton("Transferenia");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnTransferencia = new JButton("Transferenia");
+		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnTransferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GUI_Transferencia newframe = new GUI_Transferencia();
+				newframe.Transferencia = admin;
+				newframe.setLocationRelativeTo(null);
+				newframe.setVisible(true);
+				dispose();
 			}
 		});
-		btnNewButton.setBounds(0, 138, 330, 38);
-		contentPane.add(btnNewButton);
+		btnTransferencia.setBounds(0, 138, 330, 38);
+		contentPane.add(btnTransferencia);
 		
 		JButton btnAbonoACuenta = new JButton("Abono a Cuenta");
 		btnAbonoACuenta.addActionListener(new ActionListener() {
@@ -84,6 +91,12 @@ public class GUI_Caja extends JFrame {
 		contentPane.add(btnAbonoACuenta);
 		
 		JButton btnBusquedaDeCuenta = new JButton("Buscar Cuenta");
+		btnBusquedaDeCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUI_Buscador ventana = new GUI_Buscador();
+				ventana.setVisible(true);
+			}
+		});
 		btnBusquedaDeCuenta.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnBusquedaDeCuenta.setBounds(0, 243, 330, 38);
 		contentPane.add(btnBusquedaDeCuenta);
@@ -113,10 +126,11 @@ public class GUI_Caja extends JFrame {
 		lblimagen_1_1_1.setBounds(330, 297, 77, 38);
 		contentPane.add(lblimagen_1_1_1);
 		
-		JLabel lblPresentacion = new JLabel("Buen día [Nombre Cajero] :)");
+		JLabel lblPresentacion = new JLabel("");
 		lblPresentacion.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblPresentacion.setBounds(10, 369, 320, 38);
 		contentPane.add(lblPresentacion);
+		lblPresentacion.setText("Buen día " + GUI_InicioSesion.presentacion + " :)");
 		
 		JLabel lblFecha = new JLabel("");
 		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 15));
