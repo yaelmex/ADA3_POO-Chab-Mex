@@ -108,6 +108,7 @@ public class GUI_Caja extends JFrame {
 		btnBusquedaDeCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Buscador ventana = new GUI_Buscador();
+				ventana.setLocationRelativeTo(null);
 				ventana.setVisible(true);
 			}
 		});
@@ -119,7 +120,10 @@ public class GUI_Caja extends JFrame {
 		btnCierreDeCaja.setIcon(new ImageIcon("Imagenes\\btnCierreCaja.png"));
 		btnCierreDeCaja.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				GUI_Cierre newframe = new GUI_Cierre();
+				newframe.setLocationRelativeTo(null);
+				newframe.setVisible(true);
+				dispose();
 			}
 		});
 		btnCierreDeCaja.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -161,7 +165,7 @@ public class GUI_Caja extends JFrame {
 		String year = String.valueOf( calendario.get(Calendar.YEAR));
 		String dia =  String.valueOf(calendario.get(Calendar.DATE));
 		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
-		lblFecha.setText("Fecha: 3/4/2024");
+		lblFecha.setText("Fecha de hoy: "+dia+"/"+mes+"/"+year);
 		
 		JLabel lblMovimientos = new JLabel("¿Que desea hacer hoy?");
 		lblMovimientos.setForeground(new Color(0, 0, 0));

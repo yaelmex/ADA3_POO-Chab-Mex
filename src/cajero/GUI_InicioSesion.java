@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.SwingConstants;
@@ -32,6 +33,7 @@ public class GUI_InicioSesion extends JFrame {
 
 	public static String presentacion  =  "";
 	private JPasswordField textContraseña;
+	public static ArrayList<String> bitacora = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -137,20 +139,24 @@ public class GUI_InicioSesion extends JFrame {
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String usuario = textUsuario.getText();
-				String contraseña = textContraseña.getText();
-				boolean validador = acceso.buscarUsuario(usuario, contraseña);
-				presentacion = textUsuario.getText();
-				
-				if(validador) {
-					JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
-					GUI_Caja newframe = new GUI_Caja();
-					newframe.admin = acceso;
-					newframe.setLocationRelativeTo(null);
-					newframe.setVisible(true);
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					String usuario = textUsuario.getText();
+					String contraseña = textContraseña.getText();
+					boolean validador = acceso.buscarUsuario(usuario, contraseña);
+					presentacion = textUsuario.getText();
+					
+					if(validador) {
+						JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
+						bitacora.add(usuario + " " + "Inicio sesión");
+						GUI_Caja newframe = new GUI_Caja();
+						newframe.setLocationRelativeTo(null);
+						newframe.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				} catch(NullPointerException a) {
+					JOptionPane.showMessageDialog(null, "No se he encontrado el archivo de Usuarios", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

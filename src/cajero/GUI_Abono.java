@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -84,8 +85,22 @@ public class GUI_Abono extends JFrame {
 		btnAbonar.setIcon(new ImageIcon("Imagenes\\ImgbtnAbonar.png"));
 		btnAbonar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intermedio envAbono = new Intermedio();
-				envAbono.addAbono(txtAbono.getText(), txtUser.getText());
+				try {
+					Intermedio envAbono = new Intermedio();
+					envAbono.addAbono(txtAbono.getText(), txtUser.getText());
+					JOptionPane.showMessageDialog(null, "¡Abono realizado con éxito!");
+					GUI_InicioSesion.bitacora.add(lblCode.getText() + " " + "hizo un abono de: " + txtAbono.getText() + " a " + txtUser.getText());
+				} catch(NullPointerException a) {
+					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
+				} catch(NumberFormatException b) {
+					JOptionPane.showMessageDialog(null, "No ingreses letras en el monto", "Error", JOptionPane.ERROR_MESSAGE);
+				} catch(ArithmeticException c) {
+					JOptionPane.showMessageDialog(null, "Error al abonar", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				txtAbono.setText(null);
+				txtUser.setText(null);
+			
 			}
 		});
 		btnAbonar.setBounds(23, 303, 195, 55);

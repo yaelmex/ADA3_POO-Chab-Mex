@@ -27,6 +27,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JEditorPane;
+import java.awt.Color;
 
 public class GUI_Buscador extends JFrame {
 
@@ -91,7 +93,7 @@ try {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 527, 400);
+		setBounds(100, 100, 527, 442);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -99,15 +101,15 @@ try {
 		contentPane.setLayout(null);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
 		txtBuscar.setBounds(21, 136, 468, 34);
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
+		
+		JEditorPane varCodCuenta = new JEditorPane();
+		varCodCuenta.setBackground(new Color(255, 255, 255));
+		varCodCuenta.setEditable(false);
+		varCodCuenta.setBounds(158, 323, 298, 23);
+		contentPane.add(varCodCuenta);
 		
 		JLabel lblBusUsuario = new JLabel("Busqueda de Usuarios");
 		lblBusUsuario.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,20 +131,26 @@ try {
 		varNombre.setFont(new Font("Inter", Font.PLAIN, 15));
 		varNombre.setBounds(158, 286, 331, 14);
 		contentPane.add(varNombre);
-		
-		JLabel varCodCuenta = new JLabel("");
-		varCodCuenta.setFont(new Font("Inter", Font.PLAIN, 15));
-		varCodCuenta.setBounds(158, 323, 331, 14);
-		contentPane.add(varCodCuenta);
+		JLabel varCodSaldo = new JLabel("");
+		varCodSaldo.setBounds(175, 361, 281, 14);
+		contentPane.add(varCodSaldo);
 		
 		JButton btnBuscar = new JButton();
 		btnBuscar.setIcon(new ImageIcon("Imagenes\\ImgbtnBuscar.png"));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Intermedio metodo = new Intermedio();
-				varNombre.setText(txtBuscar.getText());
-				String codigo = metodo.getCodigo(txtBuscar.getText());
-				varCodCuenta.setText(codigo);
+				try {
+					Intermedio metodo = new Intermedio();
+					varNombre.setText(txtBuscar.getText());
+					String codigo = metodo.getCodigo(txtBuscar.getText());
+					String saldo = metodo.getSaldo(txtBuscar.getText());
+					varCodCuenta.setText(codigo);
+					varCodSaldo.setText("$" + saldo);
+					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " buscó los datos de la cuenta con número: " + 
+					varCodCuenta.getText());
+				} catch(NullPointerException a) {
+					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
+				}	
 			}
 		});
 		btnBuscar.setBounds(30, 194, 195, 55);
@@ -163,6 +171,12 @@ try {
 		});
 		btnCancelar.setBounds(261, 194, 195, 55);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblSaldo = new JLabel("Saldo");
+		lblSaldo.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblSaldo.setBounds(10, 361, 176, 14);
+		contentPane.add(lblSaldo);
+		
 		
 		CargarDatos();
 		CargarSugerencias();

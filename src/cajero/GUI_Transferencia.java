@@ -94,11 +94,28 @@ public class GUI_Transferencia extends JFrame {
 		btnTransferir.setIcon(new ImageIcon("Imagenes\\BtnModTransferir.png"));
 		btnTransferir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String origen = textOrigen.getText();
-				String destino = textDestino.getText();
-				float monto = Float.parseFloat(textMonto.getText());
-				String resul = Transferencia.transferencia(origen, destino, monto);
-				JOptionPane.showMessageDialog(null, resul);
+				try {
+					Intermedio Transferencia = new Intermedio();
+					String origen = textOrigen.getText();
+					String destino = textDestino.getText();
+					float monto = Float.parseFloat(textMonto.getText());
+					String resul = Transferencia.transferencia(origen, destino, monto);
+					JOptionPane.showMessageDialog(null, resul);
+					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " hizo una transferencia de la cuenta: " + origen +
+							" por: " + textMonto.getText() + " hacia la cuenta: " + destino);
+					GUI_Caja newframe = new GUI_Caja();
+					newframe.setLocationRelativeTo(null);
+					newframe.setVisible(true);
+					dispose();
+				} catch(NullPointerException a) {
+					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
+				} catch(NumberFormatException b) {
+					JOptionPane.showMessageDialog(null, "No ingreses letras en el monto", "Error", JOptionPane.ERROR_MESSAGE);
+				} catch(ArithmeticException c) {
+					JOptionPane.showMessageDialog(null, "Error al transferir", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+;
 			}
 		});
 		btnTransferir.setFont(new Font("Tahoma", Font.BOLD, 14));

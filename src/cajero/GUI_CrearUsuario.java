@@ -77,6 +77,7 @@ public class GUI_CrearUsuario extends JFrame {
 		btnRegistrar.setIcon(new ImageIcon("Imagenes\\btnRegistraInicia.png"));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Intermedio Registrador = new Intermedio();
 				String nombre = textNombre.getText() + " " + textApellidos.getText();
 				String apellidos = textApellidos.getText();
 				String contraseña = textContraseña.getText();

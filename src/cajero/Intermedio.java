@@ -157,12 +157,12 @@ public class Intermedio {
 				if(linea.contains(origen)) {
 					actualizarOrigen = linea;
 					String[] extraido = linea.split(" ");
-					montoComparar = Float.parseFloat(extraido[2]);
+					montoComparar = Float.parseFloat(extraido[5]);
 				}
 				if(linea.contains(destino)) {
 					actualizarDestino = linea;
 					String[] extraido_destino = linea.split(" ");
-					montoDestino = Float.parseFloat(extraido_destino[2]);
+					montoDestino = Float.parseFloat(extraido_destino[5]);
 				}
 				linea = br.readLine();
 				
@@ -175,11 +175,11 @@ public class Intermedio {
 				
 				String [] dividirOrigen = actualizarOrigen.split(" ");
 				String remplazarOrigen = String.valueOf(montoComparar - monto); 
-				String OrigenFinal = actualizarOrigen.replace(dividirOrigen[2], remplazarOrigen);
+				String OrigenFinal = actualizarOrigen.replace(dividirOrigen[5], remplazarOrigen);
 				
 				String [] dividirDestino = actualizarDestino.split(" ");
 				String remplazarDestino = String.valueOf(montoDestino + monto); 
-				String DestinoFinal = actualizarDestino.replace(dividirDestino[2], remplazarDestino);
+				String DestinoFinal = actualizarDestino.replace(dividirDestino[5], remplazarDestino);
 				
 				
 				BufferedReader in = new BufferedReader(new FileReader("Cuentas.txt"));
@@ -210,7 +210,7 @@ public class Intermedio {
 		}
 		
 		return null;	
-	}
+	} //---
 	
 	public String setNombre(String code) {
 		String nombreCom = " ";
@@ -264,6 +264,68 @@ try {
 					error.printStackTrace();	
 				} 
 		return codigo;
+	}
+	
+	public String getSaldo(String txtNombre) {
+		String saldo = "";
+		try {	
+			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
+			String linea;
+			String nombre = "";
+			while ((linea = archivo.readLine())!=null) 
+					{
+					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
+					if(parts.length == 6) {
+					nombre = parts[0] + " " + parts[1] + " " +  parts[2] + " " + parts[3];}
+					else if(parts.length == 5) {
+					nombre = parts[0] + " " + parts[1] + " " +  parts[2];
+					}
+					
+					if(txtNombre.equals(nombre) && parts.length == 6) {
+							saldo = parts[5];
+					} else if (txtNombre.equals(nombre) && parts.length == 5) {
+							saldo = parts[4];
+					}
+					}
+			archivo.close();	
+			return saldo;
+				} catch (IOException error) {
+					JOptionPane.showMessageDialog(null, error.getMessage());
+					error.printStackTrace();	
+				} 
+		return saldo;
+	}
+	
+	public void ImprimirBitacora(ArrayList<String> historial) {
+		try {
+			File file = new File("Bitacora.txt");
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			outfw = new FileWriter(file.getAbsoluteFile(), true);
+			outbw = new BufferedWriter(outfw);
+			
+			for(int i = 0; i < historial.size(); i++) {
+				outbw.write(historial.get(i).toString());
+				outbw.newLine();
+			}
+
+		} catch(IOException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			try {
+				if(outbw != null) {
+					outbw.close();
+				}
+				
+				if(outfw != null) {
+					outfw.close();
+				}
+			} catch(IOException a) {
+				a.printStackTrace();
+			}
+		}	
 	}
 }
 
