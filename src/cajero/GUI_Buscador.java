@@ -3,6 +3,7 @@ package cajero;
 import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -44,6 +45,8 @@ public class GUI_Buscador extends JFrame {
 				try {
 					GUI_Buscador frame = new GUI_Buscador();
 					frame.setVisible(true);
+					frame.setResizable(false);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +91,7 @@ try {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 560, 285);
+		setBounds(100, 100, 527, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -102,33 +105,38 @@ try {
 				
 			}
 		});
-		txtBuscar.setBounds(16, 44, 513, 34);
+		txtBuscar.setBounds(21, 136, 468, 34);
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
 		JLabel lblBusUsuario = new JLabel("Busqueda de Usuarios");
 		lblBusUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBusUsuario.setFont(new Font("Inter Black", Font.PLAIN, 20));
-		lblBusUsuario.setBounds(128, 8, 268, 23);
+		lblBusUsuario.setFont(new Font("Inter Black", Font.PLAIN, 24));
+		lblBusUsuario.setBounds(101, 80, 308, 23);
 		contentPane.add(lblBusUsuario);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(22, 174, 46, 14);
+		lblNombre.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblNombre.setBounds(10, 286, 105, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel lblCodigo = new JLabel("Codigo de cuenta");
-		lblCodigo.setBounds(23, 208, 105, 14);
+		lblCodigo.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblCodigo.setBounds(10, 323, 176, 14);
 		contentPane.add(lblCodigo);
 		
 		JLabel varNombre = new JLabel("");
-		varNombre.setBounds(159, 172, 281, 14);
+		varNombre.setFont(new Font("Inter", Font.PLAIN, 15));
+		varNombre.setBounds(158, 286, 331, 14);
 		contentPane.add(varNombre);
 		
 		JLabel varCodCuenta = new JLabel("");
-		varCodCuenta.setBounds(163, 207, 281, 14);
+		varCodCuenta.setFont(new Font("Inter", Font.PLAIN, 15));
+		varCodCuenta.setBounds(158, 323, 331, 14);
 		contentPane.add(varCodCuenta);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton();
+		btnBuscar.setIcon(new ImageIcon("Imagenes\\ImgbtnBuscar.png"));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Intermedio metodo = new Intermedio();
@@ -137,8 +145,24 @@ try {
 				varCodCuenta.setText(codigo);
 			}
 		});
-		btnBuscar.setBounds(161, 86, 158, 45);
+		btnBuscar.setBounds(30, 194, 195, 55);
 		contentPane.add(btnBuscar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("Imagenes\\ModBusqueda.png"));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(0, 0, 514, 58);
+		contentPane.add(lblNewLabel);
+		
+		JButton btnCancelar = new JButton();
+		btnCancelar.setIcon(new ImageIcon("Imagenes\\ImgbtnCancelar.png"));
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(261, 194, 195, 55);
+		contentPane.add(btnCancelar);
 		
 		CargarDatos();
 		CargarSugerencias();

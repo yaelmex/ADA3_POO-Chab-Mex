@@ -3,28 +3,35 @@ package cajero;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class GUI_InicioSesion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textUsuario;
-	private JTextField textContraseña;
 	private JLabel lblAgregarUsuario;
 	Intermedio acceso = new Intermedio();
 	Intermedio sesion = new Intermedio();
+
 	public static String presentacion  =  "";
+	private JPasswordField textContraseña;
 
 	/**
 	 * Launch the application.
@@ -36,6 +43,7 @@ public class GUI_InicioSesion extends JFrame {
 					GUI_InicioSesion frame = new GUI_InicioSesion();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,39 +56,49 @@ public class GUI_InicioSesion extends JFrame {
 	 */
 	public GUI_InicioSesion() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 561, 347);
+		setBounds(100, 100, 561, 403);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLabel lblbienvenido = new JLabel("¡Bienvenido!");
-		lblbienvenido.setBounds(189, 21, 167, 29);
+		JLabel lblbienvenido = new JLabel();
+		lblbienvenido.setBounds(15, 20, 514, 58);
+		ImageIcon img2 = new ImageIcon("Imagenes//BannerInicio.png");
+		contentPane.setLayout(null);
+		lblbienvenido.setIcon(img2);
 		lblbienvenido.setFont(new Font("Tahoma", Font.BOLD, 24));
 		contentPane.add(lblbienvenido);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblUsuario.setBounds(57, 92, 167, 29);
+		lblUsuario.setForeground(new Color(255, 255, 255));
+		lblUsuario.setBounds(46, 102, 167, 29);
+		lblUsuario.setFont(new Font("Inter", Font.BOLD, 25));
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contraseña:");
-		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblContrasea.setBounds(57, 143, 167, 29);
+		lblContrasea.setForeground(new Color(255, 255, 255));
+		lblContrasea.setBounds(46, 157, 200, 29);
+		lblContrasea.setFont(new Font("Inter", Font.BOLD, 25));
 		contentPane.add(lblContrasea);
 		
 		textUsuario = new JTextField();
-		textUsuario.setBounds(247, 92, 215, 29);
+		textUsuario.setFont(new Font("Inter", Font.PLAIN, 15));
+		textUsuario.setBounds(252, 108, 215, 29);
 		contentPane.add(textUsuario);
 		textUsuario.setColumns(10);
 		
-		textContraseña = new JTextField();
-		textContraseña.setColumns(10);
-		textContraseña.setBounds(247, 143, 215, 29);
+		textContraseña = new JPasswordField();
+		textContraseña.setEchoChar('\u25CF');
+		textContraseña.setFont(new Font("Inter", Font.PLAIN, 15));
+		textContraseña.setBounds(252, 161, 215, 29);
 		contentPane.add(textContraseña);
 		
 		lblAgregarUsuario = new JLabel("Agregar Usuario Nuevo");
+		lblAgregarUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAgregarUsuario.setBounds(138, 304, 268, 29);
 		lblAgregarUsuario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -99,25 +117,35 @@ public class GUI_InicioSesion extends JFrame {
 				}
 				
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblAgregarUsuario.setFont(new Font("Inter", Font.BOLD, 18));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblAgregarUsuario.setFont(new Font("Inter", Font.BOLD, 17));
+			}
 		});
-		lblAgregarUsuario.setForeground(Color.BLUE);
-		lblAgregarUsuario.setFont(new Font("Tahoma", Font.BOLD, 17));
-		lblAgregarUsuario.setBounds(172, 266, 212, 21);
+		lblAgregarUsuario.setForeground(new Color(255, 255, 255));
+		lblAgregarUsuario.setFont(new Font("Inter", Font.BOLD, 17));
 		contentPane.add(lblAgregarUsuario);
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.setForeground(new Color(0, 0, 0));
+		btnIngresar.setBackground(new Color(255, 255, 255));
+		btnIngresar.setBounds(165, 224, 214, 61);
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String usuario = textUsuario.getText();
 				String contraseña = textContraseña.getText();
-				boolean validador = sesion.buscarUsuario(usuario, contraseña);
+				boolean validador = acceso.buscarUsuario(usuario, contraseña);
 				presentacion = textUsuario.getText();
 				
 				if(validador) {
 					JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
 					GUI_Caja newframe = new GUI_Caja();
-					newframe.admin = sesion;
+					newframe.admin = acceso;
 					newframe.setLocationRelativeTo(null);
 					newframe.setVisible(true);
 					dispose();
@@ -127,8 +155,40 @@ public class GUI_InicioSesion extends JFrame {
 				
 			}
 		});
-		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnIngresar.setBounds(209, 207, 123, 35);
+		btnIngresar.setFont(new Font("Arapey", Font.PLAIN, 48));
 		contentPane.add(btnIngresar);
+		
+		JButton NotShowPass = new JButton("");
+		NotShowPass.setBackground(new Color(255, 255, 255));
+		JButton ShowPass = new JButton("");
+		ShowPass.setForeground(new Color(255, 255, 255));
+		ShowPass.setBackground(new Color(255, 255, 255));
+		ImageIcon EyeOpen = new ImageIcon("Imagenes//EyeClosed.png");
+		ShowPass.setIcon(EyeOpen);
+		ShowPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					ShowPass.setVisible(false);
+					NotShowPass.setVisible(true);
+					textContraseña.setEchoChar((char)0);
+			}
+		});
+		ShowPass.setFont(new Font("Inter", Font.PLAIN, 15));
+		ShowPass.setBounds(473, 161, 40, 29);
+		contentPane.add(ShowPass);
+		
+		ImageIcon eyeClosed = new ImageIcon("Imagenes//EyeOpen.png");
+		NotShowPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NotShowPass.setVisible(false);
+				ShowPass.setVisible(true);
+				textContraseña.setFont(new Font("Inter", Font.PLAIN, 15));
+				textContraseña.setEchoChar('\u25CF');
+			}
+		});
+		NotShowPass.setFont(new Font("Inter", Font.PLAIN, 15));
+		NotShowPass.setIcon(eyeClosed);
+		NotShowPass.setBounds(473, 161, 40, 29);
+		contentPane.add(NotShowPass);
+		
 	}
 }

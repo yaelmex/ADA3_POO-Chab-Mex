@@ -15,6 +15,9 @@ import java.util.Calendar;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class GUI_Caja extends JFrame {
 
@@ -33,6 +36,8 @@ public class GUI_Caja extends JFrame {
 				try {
 					GUI_Caja frame = new GUI_Caja();
 					frame.setVisible(true);
+					frame.setResizable(false);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,27 +49,34 @@ public class GUI_Caja extends JFrame {
 	 * Create the frame.
 	 */
 	public GUI_Caja() {
+		setResizable(false);
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 421, 547);
+		setBounds(100, 100, 527, 547);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(244, 244, 244));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("[Aquí irá el banner de presentación]");
+		JLabel lblimagen = new JLabel("[Imagen]");
+		lblimagen.setForeground(new Color(0, 0, 0));
+		lblimagen.setBackground(new Color(255, 255, 255));
+		lblimagen.setIcon(new ImageIcon("Imagenes\\Transferencia.png"));
+		lblimagen.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblimagen.setBounds(398, 164, 77, 38);
+		contentPane.add(lblimagen);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("Imagenes\\BannerModulos.png"));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 407, 58);
+		lblNewLabel.setBounds(0, 0, 514, 58);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblMovientoARealizar = new JLabel("Moviento a realizar");
-		lblMovientoARealizar.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMovientoARealizar.setBounds(0, 69, 382, 58);
-		contentPane.add(lblMovientoARealizar);
-		
-		JButton btnTransferencia = new JButton("Transferenia");
+		JButton btnTransferencia = new JButton();
+		btnTransferencia.setIcon(new ImageIcon("Imagenes\\btnTransferencia.png"));
 		btnTransferencia.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnTransferencia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -75,10 +87,11 @@ public class GUI_Caja extends JFrame {
 				dispose();
 			}
 		});
-		btnTransferencia.setBounds(0, 138, 330, 38);
+		btnTransferencia.setBounds(36, 164, 330, 38);
 		contentPane.add(btnTransferencia);
 		
-		JButton btnAbonoACuenta = new JButton("Abono a Cuenta");
+		JButton btnAbonoACuenta = new JButton();
+		btnAbonoACuenta.setIcon(new ImageIcon("Imagenes\\btnAbono.png"));
 		btnAbonoACuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Abono ventana = new GUI_Abono();
@@ -87,10 +100,11 @@ public class GUI_Caja extends JFrame {
 			}
 		});
 		btnAbonoACuenta.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnAbonoACuenta.setBounds(0, 187, 330, 38);
+		btnAbonoACuenta.setBounds(36, 233, 330, 38);
 		contentPane.add(btnAbonoACuenta);
 		
-		JButton btnBusquedaDeCuenta = new JButton("Buscar Cuenta");
+		JButton btnBusquedaDeCuenta = new JButton();
+		btnBusquedaDeCuenta.setIcon(new ImageIcon("Imagenes\\btnBuscar.png"));
 		btnBusquedaDeCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Buscador ventana = new GUI_Buscador();
@@ -98,49 +112,62 @@ public class GUI_Caja extends JFrame {
 			}
 		});
 		btnBusquedaDeCuenta.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnBusquedaDeCuenta.setBounds(0, 243, 330, 38);
+		btnBusquedaDeCuenta.setBounds(36, 297, 330, 38);
 		contentPane.add(btnBusquedaDeCuenta);
 		
-		JButton btnCierreDeCaja = new JButton("Cierre de Caja");
+		JButton btnCierreDeCaja = new JButton();
+		btnCierreDeCaja.setIcon(new ImageIcon("Imagenes\\btnCierreCaja.png"));
+		btnCierreDeCaja.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnCierreDeCaja.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnCierreDeCaja.setBounds(0, 297, 330, 38);
+		btnCierreDeCaja.setBounds(36, 365, 330, 38);
 		contentPane.add(btnCierreDeCaja);
 		
-		JLabel lblimagen = new JLabel("[Imagen]");
-		lblimagen.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblimagen.setBounds(330, 138, 77, 38);
-		contentPane.add(lblimagen);
-		
 		JLabel lblimagen_1 = new JLabel("[Imagen]");
+		lblimagen_1.setIcon(new ImageIcon("Imagenes\\Abono.png"));
 		lblimagen_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblimagen_1.setBounds(330, 187, 77, 38);
+		lblimagen_1.setBounds(398, 233, 77, 38);
 		contentPane.add(lblimagen_1);
 		
 		JLabel lblimagen_1_1 = new JLabel("[Imagen]");
+		lblimagen_1_1.setIcon(new ImageIcon("Imagenes\\Buscar.png"));
 		lblimagen_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblimagen_1_1.setBounds(330, 243, 77, 38);
+		lblimagen_1_1.setBounds(398, 297, 77, 38);
 		contentPane.add(lblimagen_1_1);
 		
 		JLabel lblimagen_1_1_1 = new JLabel("[Imagen]");
+		lblimagen_1_1_1.setIcon(new ImageIcon("Imagenes\\Cierre.png"));
 		lblimagen_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblimagen_1_1_1.setBounds(330, 297, 77, 38);
+		lblimagen_1_1_1.setBounds(398, 365, 77, 38);
 		contentPane.add(lblimagen_1_1_1);
 		
 		JLabel lblPresentacion = new JLabel("");
-		lblPresentacion.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPresentacion.setBounds(10, 369, 320, 38);
+		lblPresentacion.setForeground(new Color(0, 0, 0));
+		lblPresentacion.setFont(new Font("Inter", Font.PLAIN, 18));
+		lblPresentacion.setBounds(36, 64, 330, 38);
 		contentPane.add(lblPresentacion);
 		lblPresentacion.setText("Buen día " + GUI_InicioSesion.presentacion + " :)");
 		
 		JLabel lblFecha = new JLabel("");
-		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblFecha.setBounds(10, 418, 320, 38);
+		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFecha.setForeground(new Color(0, 0, 0));
+		lblFecha.setFont(new Font("Inter", Font.PLAIN, 18));
+		lblFecha.setBounds(36, 447, 330, 38);
 		contentPane.add(lblFecha);
 		Calendar calendario = Calendar.getInstance();
 		String year = String.valueOf( calendario.get(Calendar.YEAR));
 		String dia =  String.valueOf(calendario.get(Calendar.DATE));
 		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
-		lblFecha.setText("Fecha de hoy: "+dia+"/"+mes+"/"+year);
+		lblFecha.setText("Fecha: 3/4/2024");
+		
+		JLabel lblMovimientos = new JLabel("¿Que desea hacer hoy?");
+		lblMovimientos.setForeground(new Color(0, 0, 0));
+		lblMovimientos.setFont(new Font("Inter", Font.PLAIN, 25));
+		lblMovimientos.setBounds(36, 96, 341, 38);
+		contentPane.add(lblMovimientos);
 
 	}
 }

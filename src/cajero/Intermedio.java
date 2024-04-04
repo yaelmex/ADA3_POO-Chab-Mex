@@ -215,7 +215,7 @@ public class Intermedio {
 	public String setNombre(String code) {
 		String nombreCom = " ";
 try {	
-			BufferedReader archivo = new BufferedReader (new FileReader ("Usuarios.txt"));
+			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			while ((linea = archivo.readLine())!=null) 
 					{
