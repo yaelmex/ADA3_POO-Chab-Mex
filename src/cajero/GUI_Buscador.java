@@ -147,7 +147,7 @@ try {
 					varCodCuenta.setText(codigo);
 					varCodSaldo.setText("$" + saldo);
 					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " buscó los datos de la cuenta con número: " + 
-					varCodCuenta.getText());
+					varCodCuenta.getText() + " en el horario " + metodo.getHora());
 				} catch(NullPointerException a) {
 					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
 				}	

@@ -102,7 +102,7 @@ public class GUI_Transferencia extends JFrame {
 					String resul = Transferencia.transferencia(origen, destino, monto);
 					JOptionPane.showMessageDialog(null, resul);
 					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " hizo una transferencia de la cuenta: " + origen +
-							" por: " + textMonto.getText() + " hacia la cuenta: " + destino);
+							" por: " + textMonto.getText() + " hacia la cuenta: " + destino +  " en el horario " + Transferencia.getHora());
 					GUI_Caja newframe = new GUI_Caja();
 					newframe.setLocationRelativeTo(null);
 					newframe.setVisible(true);

@@ -5,3 +5,9 @@ RCHAB buscó los datos de la cuenta con número: 00190216623136417943
 RCHAB hizo una transferencia de la cuenta: 02396742563521387111 por: 1000 hacia la cuenta: 00190216623136417943
 RCHAB buscó los datos de la cuenta con número: 20487631316959806731
 RCHAB hizo un abono de: 100 a 20487631316959806731
+RCHAB Inicio sesión en el horario 16:15:42
+RCHAB buscó los datos de la cuenta con número: 20487631316959806731 en el horario 16:15:58
+RCHAB hizo un abono de: 2000 a 20487631316959806731 en el horario 16:16:08
+RCHAB buscó los datos de la cuenta con número: 02396742563521387111 en el horario 16:16:21
+RCHAB buscó los datos de la cuenta con número: 02169463519269290864 en el horario 16:16:38
+RCHAB hizo una transferencia de la cuenta: 02396742563521387111 por: 9000 hacia la cuenta: 02169463519269290864 en el horario 16:16:50

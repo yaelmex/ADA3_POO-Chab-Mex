@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
 import javax.swing.JList;
@@ -326,6 +329,14 @@ try {
 				a.printStackTrace();
 			}
 		}	
+	}
+	
+	public String getHora() {
+		String hora = "";
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+		Date horaExacta = new Date();
+		hora = dateFormat.format(horaExacta);
+		return hora;
 	}
 }
 

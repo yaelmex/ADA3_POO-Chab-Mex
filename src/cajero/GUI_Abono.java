@@ -89,7 +89,7 @@ public class GUI_Abono extends JFrame {
 					Intermedio envAbono = new Intermedio();
 					envAbono.addAbono(txtAbono.getText(), txtUser.getText());
 					JOptionPane.showMessageDialog(null, "¡Abono realizado con éxito!");
-					GUI_InicioSesion.bitacora.add(lblCode.getText() + " " + "hizo un abono de: " + txtAbono.getText() + " a " + txtUser.getText());
+					GUI_InicioSesion.bitacora.add(lblCode.getText() + " " + "hizo un abono de: " + txtAbono.getText() + " a " + txtUser.getText() + " en el horario " + envAbono.getHora());
 				} catch(NullPointerException a) {
 					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch(NumberFormatException b) {

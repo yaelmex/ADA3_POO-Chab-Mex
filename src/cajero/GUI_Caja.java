@@ -159,7 +159,7 @@ public class GUI_Caja extends JFrame {
 		lblFecha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFecha.setForeground(new Color(0, 0, 0));
 		lblFecha.setFont(new Font("Inter", Font.PLAIN, 18));
-		lblFecha.setBounds(36, 447, 330, 38);
+		lblFecha.setBounds(36, 416, 330, 38);
 		contentPane.add(lblFecha);
 		Calendar calendario = Calendar.getInstance();
 		String year = String.valueOf( calendario.get(Calendar.YEAR));
@@ -172,6 +172,15 @@ public class GUI_Caja extends JFrame {
 		lblMovimientos.setFont(new Font("Inter", Font.PLAIN, 25));
 		lblMovimientos.setBounds(36, 96, 341, 38);
 		contentPane.add(lblMovimientos);
+		
+		JLabel lblHora = new JLabel();
+		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHora.setForeground(Color.BLACK);
+		lblHora.setFont(new Font("Inter", Font.PLAIN, 18));
+		lblHora.setBounds(36, 449, 330, 38);
+		Intermedio hora = new Intermedio();
+		lblHora.setText("Hora actual: " + hora.getHora());
+		contentPane.add(lblHora);
 
 	}
 }

@@ -147,7 +147,7 @@ public class GUI_InicioSesion extends JFrame {
 					
 					if(validador) {
 						JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
-						bitacora.add(usuario + " " + "Inicio sesión");
+						bitacora.add(usuario + " " + "Inicio sesión" + " en el horario " + acceso.getHora());
 						GUI_Caja newframe = new GUI_Caja();
 						newframe.setLocationRelativeTo(null);
 						newframe.setVisible(true);
