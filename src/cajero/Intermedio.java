@@ -31,18 +31,21 @@ public class Intermedio {
 	    outfw = null;
 	}
 
-	
+	//RICARDO
 	public void addAbono(String abono, String usuario) 
+
 		{
-		
+		boolean Encontrado = false;
 		try {
+			// Lector de archivo
 			String nombre = "";
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String cadena = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
-				String[]parts = linea.split(" "); //Division de los datos en la linea en partes
+				String[]parts = linea.split(" "); //Division de los datos en la linea en partes, el arreglo "parts" se usa en todo el método
+				// El arreglo usa como parametro para llenar un espacio, las palabras separadas por un espacio vacio
 				
 				if(parts.length == 6) {
 				 nombre = parts[4];
@@ -51,22 +54,32 @@ public class Intermedio {
 				}
 				
 				if(nombre.contains(usuario)) {
-					if(parts.length == 6) {
+					Encontrado = true;
+					if(parts.length == 6) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 						String nueSaldo = sumaAbono( parts[5], abono);
-						cadena += linea.replaceAll(parts[5], nueSaldo) + "\r\n";
-						}// Remplazo de la tercera linea con el saldo
-						else if(parts.length == 5) {
-						String nueSaldo = sumaAbono(parts[4], abono);
-						cadena += linea.replaceAll(parts[4], nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
+						cadena += linea.replaceAll(parts[5], nueSaldo) + "\r\n"; // Remplazo del tercer espacio del arreglo "parts" con el saldo nuevo
 						}
+						else if(parts.length == 5) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
+						String nueSaldo = sumaAbono(parts[4], abono);
+						cadena += linea.replaceAll(parts[4], nueSaldo) + "\r\n";	// Remplazo del tercer espacio del arreglo "parts" con el saldo nuevo
+						}
+				
+					}
+					 else {
+						cadena += linea + "\r\n"; 
 						
-					}
-					else 
-						cadena += linea + "\r\n";
-					}
+					 }
+					} 
 			archivo.close();
-					
-			FileOutputStream fileout = new FileOutputStream("Cuentas.txt"); // Reescribir el documento Cuentas.txt
+			
+			if(Encontrado == false) {
+				JOptionPane.showMessageDialog(null, "No se encontro el usuario");
+				return;
+			} else if (Encontrado == true) {
+				JOptionPane.showMessageDialog(null, "Abono realizado con exito");
+			}
+				
+			FileOutputStream fileout = new FileOutputStream("Cuentas.txt"); // Reescribir el documento Cuentas.txt con el saldo nuevo
 			fileout.write(cadena.getBytes());
 			fileout.close();
 			
@@ -76,8 +89,8 @@ public class Intermedio {
 				} 
 		}
 	
-	
-	public String sumaAbono(String saldo, String abono) {
+	//RICARDO
+	public String sumaAbono(String saldo, String abono) { //Metodo para sumar el abono y el saldo anterior, los datos se reciben del metodo addAbono
 		Double valSaldo = Double.parseDouble(saldo);
 		Double valAbono = Double.parseDouble(abono);
 		Double valTotSaldo = valSaldo + valAbono;
@@ -86,16 +99,17 @@ public class Intermedio {
 		
 	}
 	
+	//YAEL
 	public void agregarUsuario(String nombre, String usuario, String contraseña) {
 		try {
-			File file = new File("Usuarios.txt");
+			File file = new File("Usuarios.txt");//Verifica si el archivo existe o no para crearlo o solo modificarlo
 			if(!file.exists()) {
 				file.createNewFile();
 			}
 			outfw = new FileWriter(file.getAbsoluteFile(), true);
 			outbw = new BufferedWriter(outfw);
-			String cadena = nombre + " " + usuario + " " + contraseña;
-			outbw.write(cadena);
+			String cadena = nombre + " " + usuario + " " + contraseña;//Concatena al usuario y lo añade al archivo
+			outbw.write("\r\n" + cadena);
 			outbw.newLine();
 			
 		} catch(IOException e) {
@@ -117,12 +131,14 @@ public class Intermedio {
 	}
 	
 	
-	
+	//YAEL
 	public boolean buscarUsuario(String usuario, String contraseña) {
 		try {
 		    BufferedReader br = new BufferedReader(new FileReader("Usuarios.txt"));
 		    String line = br.readLine();
 		    
+		    /*Mediante un Tokenizer se divide las líneas que se leen ignorando espacios y se validan recorriendo con un while
+		     si existen el usuario y posterior si este contiene la contraseña ingresada*/
 		    while(line != null) {
 		    	 StringTokenizer partida = new StringTokenizer(line, " ");
 		    	 while(partida.hasMoreElements()) {
@@ -146,9 +162,12 @@ public class Intermedio {
 		return false; 
 	}
 	
+	//YAEL
 	public String transferencia(String origen, String destino, float monto) {
+		//Se usa un StringBuilder para modificar una cadena sin crear otro archivo y sobreescribir
 		StringBuilder fileContent = new StringBuilder();
 		try {
+			//Se obtienen variables que sirven para comparaciones y modificaciones
 			BufferedReader br = new BufferedReader(new FileReader("Cuentas.txt"));
 			String linea = br.readLine();
 			Float montoComparar = 0F;
@@ -156,6 +175,7 @@ public class Intermedio {
 			String actualizarOrigen = "";
 			String actualizarDestino = "";
 			
+			//Mediante un while se extraen los datos necesarios de la cuenta origen y la de destino, N° de cuenta y saldo poseido
 			while(linea != null) {
 				if(linea.contains(origen)) {
 					actualizarOrigen = linea;
@@ -172,10 +192,12 @@ public class Intermedio {
 			}
 			br.close();
 			
+			//Se verifica que la transferencia sea posible validando que la transferencia del origen no supere su saldo actual
 			if(monto > montoComparar) {
 				return "No posee fondos suficientes";
 			} else {
-				
+				/*En caso de ser posible la transferencia se preparan los datos a sustituir haciendo las sumas y 
+				restas correspondientes a los saldos, así como las sustituciones de cadenas a los mismos*/
 				String [] dividirOrigen = actualizarOrigen.split(" ");
 				String remplazarOrigen = String.valueOf(montoComparar - monto); 
 				String OrigenFinal = actualizarOrigen.replace(dividirOrigen[5], remplazarOrigen);
@@ -184,9 +206,9 @@ public class Intermedio {
 				String remplazarDestino = String.valueOf(montoDestino + monto); 
 				String DestinoFinal = actualizarDestino.replace(dividirDestino[5], remplazarDestino);
 				
-				
+				//Se inicializa otro lector para reiniciar las líneas
 				BufferedReader in = new BufferedReader(new FileReader("Cuentas.txt"));
-				
+				//Se recorre el archivo en busca de las líneas a modificar y mediante las propiedades del builder se añaden
 				String lineaAct;
 				while ((lineaAct = in.readLine()) != null) {
 					
@@ -198,7 +220,7 @@ public class Intermedio {
 						fileContent.append(lineaAct).append(System.getProperty("line.separator"));
 					}
 				}
-				
+				//Finalmente lo escrito en el builder se le pasa al txt para su modificación
 				try (BufferedWriter writer = new BufferedWriter(new FileWriter("Cuentas.txt"))) {
 			            writer.write(fileContent.toString());
 			            in.close();
@@ -215,45 +237,24 @@ public class Intermedio {
 		return null;	
 	} //---
 	
-	public String setNombre(String code) {
-		String nombreCom = " ";
-try {	
-			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
-			String linea;
-			while ((linea = archivo.readLine())!=null) 
-					{
-					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2] ; String part4 = parts[3];// Adicion a un arreglo temporal
-					String part5 = parts[4];
-					if(code.equals(part5)) {
-						nombreCom = part1 + " " + part2 + " " + part3 + " " + part4;
-					}
-					}
-			archivo.close();
-			return nombreCom;	
-			
-				} catch (IOException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage());
-					error.printStackTrace();	
-				} 
-	return nombreCom;
-	}
-	
+	//RICARDO
 	public String getCodigo(String txtNombre) {
 		String codigo = "";
 		try {	
+			// Obtencion de codigo a traves del archivo Cuentas.txt
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String nombre = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
 					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					if(parts.length == 6) {
+					if(parts.length == 6) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2] + " " + parts[3];}
-					else if(parts.length == 5) {
+					else if(parts.length == 5) { // Diferenciador, los nombres formados por 1 nombre y 2 apellidos ocupan 5 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2];
 					}
 					
+					// Establecimiento del codigo en funcion del caso
 					if(txtNombre.equals(nombre) && parts.length == 6) {
 							codigo = parts[4];
 					} else if (txtNombre.equals(nombre) && parts.length == 5) {
@@ -269,7 +270,8 @@ try {
 		return codigo;
 	}
 	
-	public String getSaldo(String txtNombre) {
+	//RICARDO
+	public String getSaldo(String txtNombre) { // Obtencion del saldo por medio del archivo Cuentas.txt
 		String saldo = "";
 		try {	
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
@@ -277,13 +279,14 @@ try {
 			String nombre = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
-					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					if(parts.length == 6) {
+					String[]parts = linea.split(" "); // Division de los datos en la linea en partes
+					if(parts.length == 6) {  // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2] + " " + parts[3];}
-					else if(parts.length == 5) {
+					else if(parts.length == 5) { // Diferenciador, los nombres formados por 1 nombre y 2 apellidos ocupan 5 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2];
 					}
 					
+					// Establecimiento del saldo en funcion del caso
 					if(txtNombre.equals(nombre) && parts.length == 6) {
 							saldo = parts[5];
 					} else if (txtNombre.equals(nombre) && parts.length == 5) {
@@ -299,15 +302,16 @@ try {
 		return saldo;
 	}
 	
+	//YAEL
 	public void ImprimirBitacora(ArrayList<String> historial) {
 		try {
-			File file = new File("Bitacora.txt");
+			File file = new File("Bitacora.txt"); //Nuevamente se válida que exista o no el doc por si se hará otro cierre en otro día
 			if(!file.exists()) {
 				file.createNewFile();
 			}
 			outfw = new FileWriter(file.getAbsoluteFile(), true);
 			outbw = new BufferedWriter(outfw);
-			
+			//El array list que se recibe se recorre y lo que contiene se escribe en el archivo txt
 			for(int i = 0; i < historial.size(); i++) {
 				outbw.write(historial.get(i).toString());
 				outbw.newLine();
@@ -330,12 +334,23 @@ try {
 			}
 		}	
 	}
-	
-	public String getHora() {
+	//RICARDO
+	public String getHora() { // Metodo para obtener hora, este se muestra como un String en el label hora en GUI_Caja
 		String hora = "";
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date horaExacta = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); // Establecimiento del formato para mostrar hora
+		Date horaExacta = new Date(); // Inicializacion del objeto Date
 		hora = dateFormat.format(horaExacta);
 		return hora;
 	}
+	//RICARDO
+	public Boolean verificarVacio(String nombre, String apellido, String contraseña) { // Metodo para GUI_InicioSesion
+		// Evita la creacion de cuentas de usuario vacias
+		boolean msg = false;
+		if (nombre.equals("") || apellido.equals("") || contraseña.equals("")) { // Caso que uno de los campos este vacio
+			msg = true;
+		}
+		return msg;
+	}
+	
+
 }

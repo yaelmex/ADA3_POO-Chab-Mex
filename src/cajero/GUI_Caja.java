@@ -110,7 +110,6 @@ public class GUI_Caja extends JFrame {
 				GUI_Buscador ventana = new GUI_Buscador();
 				ventana.setLocationRelativeTo(null);
 				ventana.setVisible(true);
-				dispose();
 			}
 		});
 		btnBusquedaDeCuenta.setFont(new Font("Tahoma", Font.BOLD, 14));

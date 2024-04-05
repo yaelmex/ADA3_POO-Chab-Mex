@@ -19,8 +19,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
+
 import javax.swing.SwingConstants;
 
 public class GUI_InicioSesion extends JFrame {
@@ -67,13 +66,12 @@ public class GUI_InicioSesion extends JFrame {
 		
 
 		setContentPane(contentPane);
-		
 		Calendar calendario = Calendar.getInstance();
 		String year = String.valueOf( calendario.get(Calendar.YEAR));
 		String dia =  String.valueOf(calendario.get(Calendar.DATE));
 		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
 		fecha = dia+"/"+mes+"/"+year;
-		
+
 		JLabel lblbienvenido = new JLabel();
 		lblbienvenido.setBounds(15, 20, 514, 58);
 		ImageIcon img2 = new ImageIcon("Imagenes//BannerInicio.png");
@@ -114,6 +112,7 @@ public class GUI_InicioSesion extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				//Clave: 123Admin
+				try {
 				String clave = JOptionPane.showInputDialog("Para esto se necesitan permiso de administrador, ingrese la clave: ");
 				if(clave.equals("123Admin")) {
 					JOptionPane.showMessageDialog(null, "¡Acceso Correcto!", "Acceso", JOptionPane.INFORMATION_MESSAGE);
@@ -123,6 +122,9 @@ public class GUI_InicioSesion extends JFrame {
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Clave de administrador incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				} catch (Exception error){
+					JOptionPane.showMessageDialog(null, "Ha ocurrido un error. Intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

@@ -59,7 +59,7 @@ public class GUI_Buscador extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private void CargarDatos() {
+	private void CargarDatos() { // Metodo para cargar datos desde el archivo Cuentas.txt
 try {
 			
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
@@ -67,12 +67,12 @@ try {
 			while ((linea = archivo.readLine())!=null) 
 					{
 					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					if(parts.length == 6) {
+					if(parts.length == 6) {  // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 					String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2] ; String part4 = parts[3];// Adicion a un arreglo temporal
-					nombres.add(part1 + " " + part2 + " "  + part3  + " " + part4);
-					} else if (parts.length == 5) {
+					nombres.add(part1 + " " + part2 + " "  + part3  + " " + part4); // Adicion al arrayList nombres
+					} else if (parts.length == 5) {  // Diferenciador, los nombres formados por 2 nombres y 1 apellido ocupan 5 espacios
 						String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2];// Adicion a un arreglo temporal
-						nombres.add(part1 + " " + part2 + " "  + part3);
+						nombres.add(part1 + " " + part2 + " "  + part3); // Adicion al arrayList nombres
 					}
 					}
 			archivo.close();
@@ -84,8 +84,8 @@ try {
 		}
 
 	private void CargarSugerencias() {
-		JList listSugerencias = new JList(nombres.toArray(new String[nombres.size()]));
-		AutoCompleteDecorator.decorate(listSugerencias, txtBuscar, ObjectToStringConverter.DEFAULT_IMPLEMENTATION);
+		JList listSugerencias = new JList(nombres.toArray(new String[nombres.size()])); // JList necesario para la lectura de los nombres
+		AutoCompleteDecorator.decorate(listSugerencias, txtBuscar, ObjectToStringConverter.DEFAULT_IMPLEMENTATION); //Metodo funcional desde libreria externa
 	}
 
 	
@@ -131,6 +131,7 @@ try {
 		varNombre.setFont(new Font("Inter", Font.PLAIN, 15));
 		varNombre.setBounds(158, 286, 331, 14);
 		contentPane.add(varNombre);
+		
 		JLabel varCodSaldo = new JLabel("");
 		varCodSaldo.setBounds(175, 361, 281, 14);
 		contentPane.add(varCodSaldo);
@@ -142,12 +143,12 @@ try {
 				try {
 					Intermedio metodo = new Intermedio();
 					varNombre.setText(txtBuscar.getText());
-					String codigo = metodo.getCodigo(txtBuscar.getText());
-					String saldo = metodo.getSaldo(txtBuscar.getText());
+					String codigo = metodo.getCodigo(txtBuscar.getText()); //Llamado a metodo getCodigo de la clase Intermedio
+					String saldo = metodo.getSaldo(txtBuscar.getText()); // Lamado a metodo getSaldo de la clase Intermedio
 					varCodCuenta.setText(codigo);
 					varCodSaldo.setText("$" + saldo);
 					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " buscó los datos de la cuenta con número: " + 
-					varCodCuenta.getText() + " en el horario " + metodo.getHora() + " con fecha: " + GUI_InicioSesion.fecha);
+					varCodCuenta.getText() + " en el horario " + metodo.getHora() + " con fecha: " + GUI_InicioSesion.fecha); // Envio de registro a bitacora
 				} catch(NullPointerException a) {
 					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
 				}	
@@ -166,9 +167,6 @@ try {
 		btnCancelar.setIcon(new ImageIcon("Imagenes\\ImgbtnCancelar.png"));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI_Caja newframe = new GUI_Caja();
-				newframe.setLocationRelativeTo(null);
-				newframe.setVisible(true);
 				dispose();
 			}
 		});
