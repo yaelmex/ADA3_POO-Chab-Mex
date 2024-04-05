@@ -19,6 +19,7 @@ public class GUI_Cierre extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	Intermedio cierre = new Intermedio();
 
 	/**
 	 * Launch the application.
@@ -71,7 +72,6 @@ public class GUI_Cierre extends JFrame {
 				//Clave: 123Admin
 				
 				try {
-					Intermedio cierre = new Intermedio();
 					String clave = JOptionPane.showInputDialog("Para cerrar caja se necesitan permisos de administrador, ingrese la clave por favor: ");
 					if(clave.equals("123Admin")) {
 						
@@ -82,6 +82,7 @@ public class GUI_Cierre extends JFrame {
 								while(progressProceso.getValue() <= 100) {
 									progressProceso.setValue(progressProceso.getValue() + 10);
 									if(progressProceso.getValue() == 100) {
+										GUI_InicioSesion.bitacora.add("Caja cerrada el: " + GUI_InicioSesion.fecha + " en el horario: " + cierre.getHora());
 										cierre.ImprimirBitacora(GUI_InicioSesion.bitacora);
 										JOptionPane.showMessageDialog(null, "¡Bitácora generada con éxito!", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 										GUI_InicioSesion newframe = new GUI_InicioSesion();

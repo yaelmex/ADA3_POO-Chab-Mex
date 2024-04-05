@@ -25,6 +25,7 @@ public class GUI_Caja extends JFrame {
 	private JPanel contentPane;
 	Intermedio admin;
 	
+	
 	//ramaCreada
 
 	/**
@@ -161,11 +162,7 @@ public class GUI_Caja extends JFrame {
 		lblFecha.setFont(new Font("Inter", Font.PLAIN, 18));
 		lblFecha.setBounds(36, 416, 330, 38);
 		contentPane.add(lblFecha);
-		Calendar calendario = Calendar.getInstance();
-		String year = String.valueOf( calendario.get(Calendar.YEAR));
-		String dia =  String.valueOf(calendario.get(Calendar.DATE));
-		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
-		lblFecha.setText("Fecha de hoy: "+dia+"/"+mes+"/"+year);
+		lblFecha.setText("Fecha de hoy: "+  GUI_InicioSesion.fecha);
 		
 		JLabel lblMovimientos = new JLabel("¿Que desea hacer hoy?");
 		lblMovimientos.setForeground(new Color(0, 0, 0));

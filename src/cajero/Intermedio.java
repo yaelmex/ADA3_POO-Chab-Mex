@@ -36,13 +36,15 @@ public class Intermedio {
 		{
 		
 		try {
+			// Lector de archivo
 			String nombre = "";
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String cadena = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
-				String[]parts = linea.split(" "); //Division de los datos en la linea en partes
+				String[]parts = linea.split(" "); //Division de los datos en la linea en partes, el arreglo "parts" se usa en todo el método
+				// El arreglo usa como parametro para llenar un espacio, las palabras separadas por un espacio vacio
 				
 				if(parts.length == 6) {
 				 nombre = parts[4];
@@ -51,22 +53,22 @@ public class Intermedio {
 				}
 				
 				if(nombre.contains(usuario)) {
-					if(parts.length == 6) {
+					if(parts.length == 6) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 						String nueSaldo = sumaAbono( parts[5], abono);
-						cadena += linea.replaceAll(parts[5], nueSaldo) + "\r\n";
-						}// Remplazo de la tercera linea con el saldo
-						else if(parts.length == 5) {
+						cadena += linea.replaceAll(parts[5], nueSaldo) + "\r\n"; // Remplazo del tercer espacio del arreglo "parts" con el saldo nuevo
+						}
+						else if(parts.length == 5) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 						String nueSaldo = sumaAbono(parts[4], abono);
-						cadena += linea.replaceAll(parts[4], nueSaldo) + "\r\n";	// Remplazo de la tercera linea con el saldo
+						cadena += linea.replaceAll(parts[4], nueSaldo) + "\r\n";	// Remplazo del tercer espacio del arreglo "parts" con el saldo nuevo
 						}
 						
 					}
 					else 
-						cadena += linea + "\r\n";
+						cadena += linea + "\r\n"; 
 					}
 			archivo.close();
 					
-			FileOutputStream fileout = new FileOutputStream("Cuentas.txt"); // Reescribir el documento Cuentas.txt
+			FileOutputStream fileout = new FileOutputStream("Cuentas.txt"); // Reescribir el documento Cuentas.txt con el saldo nuevo
 			fileout.write(cadena.getBytes());
 			fileout.close();
 			
@@ -77,7 +79,7 @@ public class Intermedio {
 		}
 	
 	
-	public String sumaAbono(String saldo, String abono) {
+	public String sumaAbono(String saldo, String abono) { //Metodo para sumar el abono y el saldo anterior, los datos se reciben del metodo addAbono
 		Double valSaldo = Double.parseDouble(saldo);
 		Double valAbono = Double.parseDouble(abono);
 		Double valTotSaldo = valSaldo + valAbono;
@@ -215,45 +217,24 @@ public class Intermedio {
 		return null;	
 	} //---
 	
-	public String setNombre(String code) {
-		String nombreCom = " ";
-try {	
-			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
-			String linea;
-			while ((linea = archivo.readLine())!=null) 
-					{
-					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					String part1 = parts[0] ; String part2 = parts[1] ; String part3 = parts[2] ; String part4 = parts[3];// Adicion a un arreglo temporal
-					String part5 = parts[4];
-					if(code.equals(part5)) {
-						nombreCom = part1 + " " + part2 + " " + part3 + " " + part4;
-					}
-					}
-			archivo.close();
-			return nombreCom;	
-			
-				} catch (IOException error) {
-					JOptionPane.showMessageDialog(null, error.getMessage());
-					error.printStackTrace();	
-				} 
-	return nombreCom;
-	}
 	
 	public String getCodigo(String txtNombre) {
 		String codigo = "";
 		try {	
+			// Obtencion de codigo a traves del archivo Cuentas.txt
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
 			String linea;
 			String nombre = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
 					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					if(parts.length == 6) {
+					if(parts.length == 6) { // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2] + " " + parts[3];}
-					else if(parts.length == 5) {
+					else if(parts.length == 5) { // Diferenciador, los nombres formados por 1 nombre y 2 apellidos ocupan 5 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2];
 					}
 					
+					// Establecimiento del codigo en funcion del caso
 					if(txtNombre.equals(nombre) && parts.length == 6) {
 							codigo = parts[4];
 					} else if (txtNombre.equals(nombre) && parts.length == 5) {
@@ -269,7 +250,7 @@ try {
 		return codigo;
 	}
 	
-	public String getSaldo(String txtNombre) {
+	public String getSaldo(String txtNombre) { // Obtencion del saldo por medio del archivo Cuentas.txt
 		String saldo = "";
 		try {	
 			BufferedReader archivo = new BufferedReader (new FileReader ("Cuentas.txt"));
@@ -277,13 +258,14 @@ try {
 			String nombre = "";
 			while ((linea = archivo.readLine())!=null) 
 					{
-					String[]parts = linea.split(" "); //Division de los datos en la linea en partes
-					if(parts.length == 6) {
+					String[]parts = linea.split(" "); // Division de los datos en la linea en partes
+					if(parts.length == 6) {  // Diferenciador, los nombres formados por 2 nombres y 2 apellidos ocupan 6 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2] + " " + parts[3];}
-					else if(parts.length == 5) {
+					else if(parts.length == 5) { // Diferenciador, los nombres formados por 1 nombre y 2 apellidos ocupan 5 espacios
 					nombre = parts[0] + " " + parts[1] + " " +  parts[2];
 					}
 					
+					// Establecimiento del saldo en funcion del caso
 					if(txtNombre.equals(nombre) && parts.length == 6) {
 							saldo = parts[5];
 					} else if (txtNombre.equals(nombre) && parts.length == 5) {
@@ -331,12 +313,21 @@ try {
 		}	
 	}
 	
-	public String getHora() {
+	public String getHora() { // Metodo para obtener hora, este se muestra como un String en el label hora en GUI_Caja
 		String hora = "";
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date horaExacta = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss"); // Establecimiento del formato para mostrar hora
+		Date horaExacta = new Date(); // Inicializacion del objeto Date
 		hora = dateFormat.format(horaExacta);
 		return hora;
+	}
+	
+	public Boolean verificarVacio(String nombre, String apellido, String contraseña) { // Metodo para GUI_InicioSesion
+		// Evita la creacion de cuentas de usuario vacias
+		boolean msg = false;
+		if (nombre.equals("") || apellido.equals("") || contraseña.equals("")) { // Caso que uno de los campos este vacio
+			msg = true;
+		}
+		return msg;
 	}
 }
 

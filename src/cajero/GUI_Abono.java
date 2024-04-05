@@ -87,9 +87,10 @@ public class GUI_Abono extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Intermedio envAbono = new Intermedio();
-					envAbono.addAbono(txtAbono.getText(), txtUser.getText());
+					envAbono.addAbono(txtAbono.getText(), txtUser.getText()); // Llamado y envio de parametros a metodo addAbono de la clase Intermedio
 					JOptionPane.showMessageDialog(null, "¡Abono realizado con éxito!");
-					GUI_InicioSesion.bitacora.add(lblCode.getText() + " " + "hizo un abono de: " + txtAbono.getText() + " a " + txtUser.getText() + " en el horario " + envAbono.getHora());
+					GUI_InicioSesion.bitacora.add(lblCode.getText() + " " + "hizo un abono de: " + txtAbono.getText() + " a " + txtUser.getText() + " en el horario " + envAbono.getHora() +
+							" con fecha: " + GUI_InicioSesion.fecha); // Adicion de registro a bitacora
 				} catch(NullPointerException a) {
 					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch(NumberFormatException b) {
@@ -111,6 +112,7 @@ public class GUI_Abono extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Caja venCaja = new GUI_Caja();
+				venCaja.setLocationRelativeTo(null);
 				venCaja.setVisible(true);
 				dispose();
 			}

@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.SwingConstants;
@@ -32,6 +33,7 @@ public class GUI_InicioSesion extends JFrame {
 	Intermedio sesion = new Intermedio();
 
 	public static String presentacion  =  "";
+	public static String fecha = "";
 	private JPasswordField textContraseña;
 	public static ArrayList<String> bitacora = new ArrayList<>();
 
@@ -65,7 +67,12 @@ public class GUI_InicioSesion extends JFrame {
 		
 
 		setContentPane(contentPane);
-		
+		Calendar calendario = Calendar.getInstance();
+		String year = String.valueOf( calendario.get(Calendar.YEAR));
+		String dia =  String.valueOf(calendario.get(Calendar.DATE));
+		String mes = String.valueOf(calendario.get(Calendar.MONTH)+1);
+		fecha = dia+"/"+mes+"/"+year;
+
 		JLabel lblbienvenido = new JLabel();
 		lblbienvenido.setBounds(15, 20, 514, 58);
 		ImageIcon img2 = new ImageIcon("Imagenes//BannerInicio.png");
@@ -147,7 +154,8 @@ public class GUI_InicioSesion extends JFrame {
 					
 					if(validador) {
 						JOptionPane.showMessageDialog(null, "¡Acceso Correcto!");
-						bitacora.add(usuario + " " + "Inicio sesión" + " en el horario " + acceso.getHora());
+						bitacora.add(usuario + " " + "Inicio sesión" + " en el horario " + acceso.getHora() + " con fecha: " + fecha);
+
 						GUI_Caja newframe = new GUI_Caja();
 						newframe.setLocationRelativeTo(null);
 						newframe.setVisible(true);

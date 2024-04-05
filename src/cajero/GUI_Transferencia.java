@@ -102,7 +102,8 @@ public class GUI_Transferencia extends JFrame {
 					String resul = Transferencia.transferencia(origen, destino, monto);
 					JOptionPane.showMessageDialog(null, resul);
 					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " hizo una transferencia de la cuenta: " + origen +
-							" por: " + textMonto.getText() + " hacia la cuenta: " + destino +  " en el horario " + Transferencia.getHora());
+							" por: " + textMonto.getText() + " hacia la cuenta: " + destino +  " en el horario " + Transferencia.getHora() +
+							" con fecha: " + GUI_InicioSesion.fecha);					
 					GUI_Caja newframe = new GUI_Caja();
 					newframe.setLocationRelativeTo(null);
 					newframe.setVisible(true);
@@ -115,6 +116,9 @@ public class GUI_Transferencia extends JFrame {
 					JOptionPane.showMessageDialog(null, "Error al transferir", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
+				textOrigen.setText(null);
+				textMonto.setText(null);
+				textDestino.setText(null);				
 ;
 			}
 		});
@@ -127,6 +131,7 @@ public class GUI_Transferencia extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Caja venCaja = new GUI_Caja();
+				venCaja.setLocationRelativeTo(null);
 				venCaja.setVisible(true);
 				dispose();
 			}
