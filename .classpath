@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Yael/Desktop/Universidad - Yael/Cuarto Semestre - LATI/ADA3-Chab, Mex/swingx-all-1.6.4.jar"/>
+	<classpathentry kind="lib" path="swingx-all-1.6.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
