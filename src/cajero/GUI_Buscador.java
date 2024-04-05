@@ -3,6 +3,7 @@ package cajero;
 import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -26,6 +27,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.JEditorPane;
+import java.awt.Color;
 
 public class GUI_Buscador extends JFrame {
 
@@ -44,6 +47,8 @@ public class GUI_Buscador extends JFrame {
 				try {
 					GUI_Buscador frame = new GUI_Buscador();
 					frame.setVisible(true);
+					frame.setResizable(false);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +93,7 @@ try {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 560, 313);
+		setBounds(100, 100, 527, 442);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -96,41 +101,42 @@ try {
 		contentPane.setLayout(null);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		txtBuscar.setBounds(16, 44, 513, 34);
+		txtBuscar.setBounds(21, 136, 468, 34);
 		contentPane.add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
+		JEditorPane varCodCuenta = new JEditorPane();
+		varCodCuenta.setBackground(new Color(255, 255, 255));
+		varCodCuenta.setEditable(false);
+		varCodCuenta.setBounds(158, 323, 298, 23);
+		contentPane.add(varCodCuenta);
+		
 		JLabel lblBusUsuario = new JLabel("Busqueda de Usuarios");
 		lblBusUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBusUsuario.setFont(new Font("Inter Black", Font.PLAIN, 20));
-		lblBusUsuario.setBounds(128, 8, 268, 23);
+		lblBusUsuario.setFont(new Font("Inter Black", Font.PLAIN, 24));
+		lblBusUsuario.setBounds(101, 80, 308, 23);
 		contentPane.add(lblBusUsuario);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(22, 174, 65, 14);
+		lblNombre.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblNombre.setBounds(10, 286, 105, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel lblCodigo = new JLabel("Codigo de cuenta");
-		lblCodigo.setBounds(23, 208, 105, 14);
+		lblCodigo.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblCodigo.setBounds(10, 323, 176, 14);
 		contentPane.add(lblCodigo);
 		
 		JLabel varNombre = new JLabel("");
-		varNombre.setBounds(159, 172, 281, 14);
+		varNombre.setFont(new Font("Inter", Font.PLAIN, 15));
+		varNombre.setBounds(158, 286, 331, 14);
 		contentPane.add(varNombre);
-		
-		JLabel varCodCuenta = new JLabel("");
-		varCodCuenta.setBounds(163, 207, 281, 14);
-		contentPane.add(varCodCuenta);
-		
 		JLabel varCodSaldo = new JLabel("");
-		varCodSaldo.setBounds(159, 251, 281, 14);
+		varCodSaldo.setBounds(175, 361, 281, 14);
 		contentPane.add(varCodSaldo);
 		
-		JButton btnBuscar = new JButton("Buscar");
+		JButton btnBuscar = new JButton();
+		btnBuscar.setIcon(new ImageIcon("Imagenes\\ImgbtnBuscar.png"));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -139,23 +145,26 @@ try {
 					String codigo = metodo.getCodigo(txtBuscar.getText());
 					String saldo = metodo.getSaldo(txtBuscar.getText());
 					varCodCuenta.setText(codigo);
-					varCodSaldo.setText(saldo);
+					varCodSaldo.setText("$" + saldo);
 					GUI_InicioSesion.bitacora.add(GUI_InicioSesion.presentacion + " buscó los datos de la cuenta con número: " + 
-					varCodCuenta.getText());
+					varCodCuenta.getText() + " en el horario " + metodo.getHora() + " con fecha: " + GUI_InicioSesion.fecha);
 				} catch(NullPointerException a) {
 					JOptionPane.showMessageDialog(null, "Proceso Interrumpido", "Error", JOptionPane.ERROR_MESSAGE);
-				}		
+				}	
 			}
 		});
-		btnBuscar.setBounds(104, 89, 158, 45);
+		btnBuscar.setBounds(30, 194, 195, 55);
 		contentPane.add(btnBuscar);
 		
-		JLabel lblSaldo = new JLabel("Saldo:");
-		lblSaldo.setBounds(23, 251, 105, 14);
-		contentPane.add(lblSaldo);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("Imagenes\\ModBusqueda.png"));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel.setBounds(0, 0, 514, 58);
+		contentPane.add(lblNewLabel);
 		
-		JButton btnRegresar = new JButton("Regresar");
-		btnRegresar.addActionListener(new ActionListener() {
+		JButton btnCancelar = new JButton();
+		btnCancelar.setIcon(new ImageIcon("Imagenes\\ImgbtnCancelar.png"));
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Caja newframe = new GUI_Caja();
 				newframe.setLocationRelativeTo(null);
@@ -163,10 +172,14 @@ try {
 				dispose();
 			}
 		});
-		btnRegresar.setBounds(293, 89, 158, 45);
-		contentPane.add(btnRegresar);
+		btnCancelar.setBounds(261, 194, 195, 55);
+		contentPane.add(btnCancelar);
 		
-
+		JLabel lblSaldo = new JLabel("Saldo");
+		lblSaldo.setFont(new Font("Inter", Font.PLAIN, 15));
+		lblSaldo.setBounds(10, 361, 176, 14);
+		contentPane.add(lblSaldo);
+		
 		
 		CargarDatos();
 		CargarSugerencias();

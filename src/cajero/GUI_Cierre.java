@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JProgressBar;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ public class GUI_Cierre extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	Intermedio cierre = new Intermedio();
 
 	/**
 	 * Launch the application.
@@ -47,28 +49,29 @@ public class GUI_Cierre extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("[Aquí irá el banner de presentación]");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(0, 0, 514, 58);
-		contentPane.add(lblNewLabel);
+		JLabel lblBanner = new JLabel("[Aquí irá el banner de presentación]");
+		lblBanner.setIcon(new ImageIcon("Imagenes\\BannerCierreCaja.png"));
+		lblBanner.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblBanner.setBounds(0, 0, 514, 58);
+		contentPane.add(lblBanner);
 		
 		JLabel lblCierreDeSucursal = new JLabel("Cierre de Sucursal Banco Capitalia");
-		lblCierreDeSucursal.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblCierreDeSucursal.setBounds(116, 79, 277, 43);
+		lblCierreDeSucursal.setFont(new Font("Inter", Font.BOLD, 18));
+		lblCierreDeSucursal.setBounds(98, 73, 316, 43);
 		contentPane.add(lblCierreDeSucursal);
 		
 		JProgressBar progressProceso = new JProgressBar();
-		progressProceso.setBounds(77, 135, 355, 22);
+		progressProceso.setBounds(79, 135, 355, 22);
 		contentPane.add(progressProceso);
 		progressProceso.setStringPainted(true);
 		
-		JButton btnCerrar = new JButton("Cerrar");
+		JButton btnCerrar = new JButton();
+		btnCerrar.setIcon(new ImageIcon("Imagenes\\ImgbtnCerrar.png"));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Clave: 123Admin
 				
 				try {
-					Intermedio cierre = new Intermedio();
 					String clave = JOptionPane.showInputDialog("Para cerrar caja se necesitan permisos de administrador, ingrese la clave por favor: ");
 					if(clave.equals("123Admin")) {
 						
@@ -79,6 +82,7 @@ public class GUI_Cierre extends JFrame {
 								while(progressProceso.getValue() <= 100) {
 									progressProceso.setValue(progressProceso.getValue() + 10);
 									if(progressProceso.getValue() == 100) {
+										GUI_InicioSesion.bitacora.add("Caja cerrada el: " + GUI_InicioSesion.fecha + " en el horario: " + cierre.getHora());
 										cierre.ImprimirBitacora(GUI_InicioSesion.bitacora);
 										JOptionPane.showMessageDialog(null, "¡Bitácora generada con éxito!", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 										GUI_InicioSesion newframe = new GUI_InicioSesion();
@@ -113,10 +117,11 @@ public class GUI_Cierre extends JFrame {
 			}
 		});
 		btnCerrar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnCerrar.setBounds(116, 206, 120, 38);
+		btnCerrar.setBounds(27, 185, 195, 55);
 		contentPane.add(btnCerrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton();
+		btnCancelar.setIcon(new ImageIcon("Imagenes\\ImgbtnCancelar.png"));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUI_Caja newframe = new GUI_Caja();
@@ -126,7 +131,7 @@ public class GUI_Cierre extends JFrame {
 			}
 		});
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnCancelar.setBounds(273, 206, 120, 38);
+		btnCancelar.setBounds(277, 185, 195, 55);
 		contentPane.add(btnCancelar);
 	}
 }
